@@ -1,0 +1,23 @@
+EveryDay Native Profiler — 單檔離線互動版
+=========================================
+
+1. 直接用 Chrome 或 Microsoft Edge 開啟 EveryDay-Arthas-Style-Native-Profiler.html。
+   HTML 內建所有必要的 Trace、JNI binding、Native Machine Code 和壓縮的 javap 資料。
+   不需要網際網路、外部 JS、伺服器或額外 DLL。
+
+2. 左側可以切換：
+   - 概覽：事件統計、時間軸、常見呼叫點、JNI RVA 空間。
+   - 火焰圖：以真實 enter/return span 重建層級，點選縮放、切換 Weight。
+   - 事件時間軸：點擊時間柱可查看該段呼叫點分佈。
+   - JNI 位址地圖：53 個 JVMTI 綁定 RVA、VA、擷取範圍、Java 呼叫點連結。
+   - 呼叫點索引：354 個 instrumentation site，可依 Java class / opcode 篩選。
+   - Java Bytecode：1007 個原始 class 的完整 javap -v -p -c；進入時才解壓載入。
+   - Native ASM：x64 反組譯預覽、搜尋指令、下載擷取的原生 .bin。
+
+3. RVA 是 module-relative address；本次 ASLR Runtime VA 是單次執行記錄，不代表每次固定。
+
+4. 注意：這不是 Arthas 官方網站或 CPU sampling profiler。圖表是 Java 插樁和 JVMTI 事件統計，無法推論沒有被攔截的本機函式內部呼叫、CPU 百分比，也無法自動確認授權 ID 白名單判斷。"unwind_bounded_body" 代表依可用 unwind 資料擷取；"partial_bounded_region" 代表片段擷取。
+
+5. 所有操作都在瀏覽器本機進行，沒有網路請求。請妥善保存，因為檔案內包含執行紀錄、Java Bytecode 及 native machine code。
+
+檔案已使用 Chromium 實測概覽、JNI Inspector、Flamegraph、時間選取、Callsite Table、Native ASM 及 Java Bytecode 解壓。無 JavaScript 錯誤。
